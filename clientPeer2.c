@@ -19,7 +19,7 @@
 
 void joinPerson(int sockfd, int typeOfGame, char name[], int connectserver)
 {
-  strcpy(pointBroad, "00000000");
+  strcpy(pointBroad, "000000000");
   char buff[MAX], msg[MAX], competitorName[MAX];
   int n;
 
