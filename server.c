@@ -37,7 +37,7 @@ int msg(int sockfd, char ip[])
   bzero(password, MAX);
   bzero(win, MAX);
   bzero(lose, MAX);
-  if (read(sockfd, buffer, sizeof(buffer)) != 0)
+  if (recv(sockfd, buffer, sizeof(buffer), 0) != 0)
   {
     printf("From client: %s To client : ", buffer);
     if (buffer[0] == '1') //for login
@@ -180,10 +180,10 @@ int msg(int sockfd, char ip[])
       strcat(rank, _getRank(buffer));
       printf("\n%s ", rank);
       sendlong = 1;
-      write(sockfd, rank, sizeof(rank));
+      send(sockfd, rank, sizeof(rank), 0);
     }
     if (!sendlong)
-      write(sockfd, msg, sizeof(msg));
+      send(sockfd, msg, sizeof(msg), 0);
     sendlong = 0;
     memset(msg, 0, sizeof(msg));
     return 1;

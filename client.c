@@ -41,10 +41,10 @@ void login(int sockfd)
     while ((buff[n++] = getchar()) != '\n')
       ;
 
-    write(sockfd, buff, sizeof(buff));
+    send(sockfd, buff, sizeof(buff), 0);
     bzero(buff, sizeof(buff));
 
-    read(sockfd, buff, sizeof(buff));
+    recv(sockfd, buff, sizeof(buff), 0);
 
     if (loginTime < 4)
       if (strcmp(buff, "Login successfully") != 0)
@@ -61,9 +61,9 @@ void login(int sockfd)
     if (loginTime == 0)
     {
       username[0] = '3';
-      write(sockfd, username, sizeof(username));
+      send(sockfd, username, sizeof(username), 0);
       bzero(buff, sizeof(buff));
-      read(sockfd, buff, sizeof(buff));
+      recv(sockfd, buff, sizeof(buff), 0);
     }
     printf("From Server : %s\n", buff);
   }
@@ -91,10 +91,10 @@ void signup(int sockfd)
   while ((buff[n++] = getchar()) != '\n')
     ;
 
-  write(sockfd, buff, sizeof(buff));
+  send(sockfd, buff, sizeof(buff), 0);
   bzero(buff, sizeof(buff));
 
-  read(sockfd, buff, sizeof(buff));
+  recv(sockfd, buff, sizeof(buff), 0);
 
   if (strcmp(buff, "Signup successfully") == 0)
   {
@@ -119,9 +119,9 @@ void logout(int sockfd)
   while ((buff[n++] = getchar()) != '\n')
     ;
 
-  write(sockfd, buff, sizeof(buff));
+  send(sockfd, buff, sizeof(buff), 0);
   bzero(buff, sizeof(buff));
-  read(sockfd, buff, sizeof(buff));
+  recv(sockfd, buff, sizeof(buff), 0);
   if (strcmp(buff, "Goodbye") == 0)
     loginTime = 3;
   printf("From Server : %s\n", buff);
@@ -141,11 +141,11 @@ void normalgame(int sockfd)
   strcat(buff, "5");
   strcat(buff, ip_port);
 
-  write(sockfd, buff, sizeof(buff));
+  send(sockfd, buff, sizeof(buff), 0);
 
   bzero(buff, sizeof(buff));
 
-  read(sockfd, buff, sizeof(buff));
+  recv(sockfd, buff, sizeof(buff), 0);
   if (buff[0] == 'h')
   {
     for (int i = 0; i < strlen(buff); i++)
@@ -177,11 +177,11 @@ void rankgame(int sockfd, char name[])
   strcat(buff, "6");
   strcat(buff, ip_port);
 
-  write(sockfd, buff, sizeof(buff));
+  recv(sockfd, buff, sizeof(buff), 0);
 
   bzero(buff, sizeof(buff));
 
-  read(sockfd, buff, sizeof(buff));
+  send(sockfd, buff, sizeof(buff), 0);
   if (buff[0] == 'h')
   {
     for (int i = 0; i < strlen(buff); i++)
@@ -207,11 +207,11 @@ void showRank(int sockfd, char name[])
   strcat(buff, "7");
   strcat(buff, name);
 
-  write(sockfd, buff, sizeof(buff));
+  send(sockfd, buff, sizeof(buff), 0);
 
-  // bzero(buff, sizeof(buff));
+  bzero(buff, sizeof(buff));
 
-  read(sockfd, rank, sizeof(rank));
+  recv(sockfd, rank, sizeof(rank), 0);
   rankNav();
   printf("%s", rank);
   getchar();

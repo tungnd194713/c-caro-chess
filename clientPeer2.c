@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <netinet/in.h>
 #include <string.h>
-#include <sys/socket.h>
-#include <stdlib.h>
+#include <netinet/in.h>
+#ifdef _WIN32
+#include <winsock2.h>
+#endif
 #include <arpa/inet.h>
+#include <sys/socket.h>
 #include <netdb.h>
 #include <fcntl.h>  // for open
 #include <unistd.h> // for close
@@ -29,8 +31,8 @@ void joinPerson(int sockfd, int typeOfGame, char name[], int connectserver)
   if (typeOfGame == 2)
   {
     strcpy(buff, name);
-    read(sockfd, competitorName, sizeof(competitorName));
-    write(sockfd, buff, sizeof(buff));
+    recv(sockfd, competitorName, sizeof(competitorName), 0);
+    send(sockfd, buff, sizeof(buff), 0);
   }
 
   for (;;)
@@ -62,7 +64,7 @@ void joinPerson(int sockfd, int typeOfGame, char name[], int connectserver)
     ingame(pointBroad);
     if (typeOfGame == 2)
       score(name, competitorName);
-    write(sockfd, buff, sizeof(buff));
+    send(sockfd, buff, sizeof(buff), 0);
 
     if (checkWinner(pointBroad, '2'))
     {
@@ -75,8 +77,8 @@ void joinPerson(int sockfd, int typeOfGame, char name[], int connectserver)
         strcat(msg, "~");
         strcat(msg, competitorName);
 
-        write(connectserver, msg, sizeof(msg));
-        read(connectserver, msg, sizeof(msg));
+        send(connectserver, msg, sizeof(msg), 0);
+        recv(connectserver, msg, sizeof(msg), 0);
         bzero(msg, MAX);
         printf("%s", msg);
       }
@@ -87,7 +89,7 @@ void joinPerson(int sockfd, int typeOfGame, char name[], int connectserver)
 
     bzero(buff, sizeof(buff));
     printf("Doi doi phuong danh ...\n");
-    if (read(sockfd, buff, sizeof(buff)) == 0)
+    if (recv(sockfd, buff, sizeof(buff), 0) == 0)
     {
       if (typeOfGame == 2)
       {
@@ -97,8 +99,8 @@ void joinPerson(int sockfd, int typeOfGame, char name[], int connectserver)
         strcat(msg, "~");
         strcat(msg, competitorName);
 
-        write(connectserver, msg, sizeof(msg));
-        read(connectserver, msg, sizeof(msg));
+        send(connectserver, msg, sizeof(msg), 0);
+        recv(connectserver, msg, sizeof(msg), 0);
 
         bzero(msg, MAX);
         printf("%s", msg);

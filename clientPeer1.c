@@ -28,8 +28,8 @@ void hostPerson(int sockfd, int typeOfGame, char name[], int connectserver)
   if (typeOfGame == 2)
   {
     strcpy(buff, name);
-    write(sockfd, buff, sizeof(buff));
-    read(sockfd, competitorName, sizeof(competitorName));
+    send(sockfd, buff, sizeof(buff), 0);
+    recv(sockfd, competitorName, sizeof(competitorName), 0);
   }
   // infinite loop for game
 
@@ -43,7 +43,7 @@ void hostPerson(int sockfd, int typeOfGame, char name[], int connectserver)
       score(name, competitorName);
     printf("Doi doi phuong danh ...\n");
     // read the message from client and copy it in buffer
-    if (read(sockfd, buff, sizeof(buff)) == 0)
+    if (recv(sockfd, buff, sizeof(buff), 0) == 0)
     {
       if (typeOfGame == 2)
       {
@@ -53,8 +53,8 @@ void hostPerson(int sockfd, int typeOfGame, char name[], int connectserver)
         strcat(msg, "~");
         strcat(msg, competitorName);
 
-        write(connectserver, msg, sizeof(msg));
-        read(connectserver, msg, sizeof(msg));
+        send(connectserver, msg, sizeof(msg), 0);
+        recv(connectserver, msg, sizeof(msg), 0);
 
         bzero(msg, MAX);
         printf("%s", msg);
@@ -101,7 +101,7 @@ void hostPerson(int sockfd, int typeOfGame, char name[], int connectserver)
       break;
     }
     // and send that buffer to client
-    write(sockfd, buff, sizeof(buff));
+    send(sockfd, buff, sizeof(buff), 0);
     strcpy(pointBroad, updateBroad(pointBroad, buff, '1'));
     if (checkWinner(pointBroad, '1'))
     {
@@ -114,8 +114,8 @@ void hostPerson(int sockfd, int typeOfGame, char name[], int connectserver)
         strcat(msg, "~");
         strcat(msg, competitorName);
 
-        write(connectserver, msg, sizeof(msg));
-        read(connectserver, msg, sizeof(msg));
+        send(connectserver, msg, sizeof(msg), 0);
+        recv(connectserver, msg, sizeof(msg), 0);
 
         bzero(msg, MAX);
         printf("%s", msg);

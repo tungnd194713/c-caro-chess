@@ -36,17 +36,6 @@ void checkHostEntry(struct hostent *hostentry)
   }
 }
 
-// Converts space-delimited IPv4 addresses
-// to dotted-decimal format
-void checkIPbuffer(char *IPbuffer)
-{
-  if (NULL == IPbuffer)
-  {
-    perror("inet_ntoa");
-    exit(1);
-  }
-}
-
 // --------------------------------------------------------
 
 char *genPort()
@@ -101,16 +90,8 @@ char *genPort()
   host_entry = gethostbyname(hostbuffer);
   checkHostEntry(host_entry);
 
-  // To convert an Internet network
-  // address into ASCII string
-  IPbuffer = inet_ntoa(*((struct in_addr *)
-                             host_entry->h_addr_list[0]));
-
-  // strcat(IPbuffer, "~");
-  // strcat(IPbuffer, port);
-
   strcat(Port, port);
-
+  
   return (Port);
 }
 

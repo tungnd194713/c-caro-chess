@@ -1,7 +1,7 @@
 #ifndef __FILE_H__
 #define __FILE_H__
 
-char pointBroad[9];
+char pointBroad[10];
 
 char *genPort();
 char *return_ip(char ip_port[]);
