@@ -41,19 +41,20 @@ void joinPerson(int sockfd, int typeOfGame, char name[], int connectserver)
     ingame(pointBroad);
     if (typeOfGame == 2)
       score(name, competitorName);
+    do {
+      printf("Nhap vi tri muon danh : ");
+      bzero(buff, MAX);
 
-    printf("Nhap vi tri muon danh : ");
-
-    while (1)
-    {
-      bzero(buff, sizeof(buff));
       n = 0;
       while ((buff[n++] = getchar()) != '\n')
         ;
 
-      if (!isPositionExits(buff))
-        break;
-    }
+      if (isPositionExits(buff))
+        printf("Vi tri da ton tai!\n");
+      else if (!isValidMove(buff))
+        printf("Vi tri khong hop le!\n");
+    } while(isPositionExits(buff) || !isValidMove(buff));
+
     if (strcmp(buff, "q\n") == 0)
     {
       close(sockfd);

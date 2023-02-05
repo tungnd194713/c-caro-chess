@@ -177,11 +177,11 @@ void rankgame(int sockfd, char name[])
   strcat(buff, "6");
   strcat(buff, ip_port);
 
-  recv(sockfd, buff, sizeof(buff), 0);
+  send(sockfd, buff, sizeof(buff), 0);
 
   bzero(buff, sizeof(buff));
 
-  send(sockfd, buff, sizeof(buff), 0);
+  recv(sockfd, buff, sizeof(buff), 0);
   if (buff[0] == 'h')
   {
     for (int i = 0; i < strlen(buff); i++)

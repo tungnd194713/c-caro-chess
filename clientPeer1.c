@@ -82,18 +82,19 @@ void hostPerson(int sockfd, int typeOfGame, char name[], int connectserver)
       break;
     }
     // copy server message in the buffer
-    printf("Nhap vi tri muon danh : ");
-    while (1)
-    {
+    do {
+      printf("Nhap vi tri muon danh : ");
       bzero(buff, MAX);
 
       n = 0;
       while ((buff[n++] = getchar()) != '\n')
         ;
 
-      if (!isPositionExits(buff))
-        break;
-    }
+      if (isPositionExits(buff))
+        printf("Vi tri da ton tai!\n");
+      else if (!isValidMove(buff))
+        printf("Vi tri khong hop le!\n");
+    } while(isPositionExits(buff) || !isValidMove(buff));
 
     if (strcmp(buff, "q\n") == 0)
     {

@@ -162,6 +162,28 @@ int isPositionExits(char location[])
   return 0;
 }
 
+int isValidMove(char location[]) {
+  if (strcmp(location, "a1\n") == 0)
+    return 1;
+  if (strcmp(location, "a2\n") == 0)
+    return 1;
+  if (strcmp(location, "a3\n") == 0)
+    return 1;
+  if (strcmp(location, "b1\n") == 0)
+    return 1;
+  if (strcmp(location, "b2\n") == 0)
+    return 1;
+  if (strcmp(location, "b3\n") == 0)
+    return 1;
+  if (strcmp(location, "c1\n") == 0)
+    return 1;
+  if (strcmp(location, "c2\n") == 0)
+    return 1;
+  if (strcmp(location, "c3\n") == 0)
+    return 1;
+  return 0;
+}
+
 char *updateBroad(char pointBroad[], char location[], char player)
 {
   if (strcmp(location, "a1\n") == 0)

@@ -124,7 +124,7 @@ int msg(int sockfd, char ip[])
     }
     else if (buffer[0] == '6') // for create rank game
     {
-      // printf("%s\n", buffer);
+      printf("%s\n", buffer);
 
       for (i = 0; i < strlen(buffer); i++)
         buffer[i] = buffer[i + 1];
