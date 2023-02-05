@@ -240,14 +240,6 @@ int main(int argc, char *argv[])
     printf("Socket successfully created..\n");
   bzero(&servaddr, sizeof(servaddr));
 
-  // setup multiconnect
-  if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (char *)&opt,
-                 sizeof(opt)) < 0)
-  {
-    perror("setsockopt");
-    exit(EXIT_FAILURE);
-  }
-
   // assign IP, PORT
   servaddr.sin_family = AF_INET;
   servaddr.sin_addr.s_addr = INADDR_ANY;
