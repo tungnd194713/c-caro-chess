@@ -10,5 +10,6 @@ int isPositionExits(char location[]);
 int isValidMove(char location[]);
 char *updateBroad(char pointBroad[], char location[], char player);
 int checkWinner(char broad[], char xo);
+int checkDraw();
 
 #endif

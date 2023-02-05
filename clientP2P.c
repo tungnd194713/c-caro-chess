@@ -238,3 +238,11 @@ int checkWinner(char broad[], char xo)
 
   return 0;
 }
+
+int checkDraw() {
+  for (int i = 0; i < strlen(pointBroad); ++i) 
+    if (pointBroad[i] == '0') {
+      return 0;
+    }
+  return 1;
+} 

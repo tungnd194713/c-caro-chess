@@ -67,6 +67,13 @@ void joinPerson(int sockfd, int typeOfGame, char name[], int connectserver)
       score(name, competitorName);
     send(sockfd, buff, sizeof(buff), 0);
 
+    if (checkDraw()) {
+      printf("Ket qua hoa!");
+      getchar();
+      close(sockfd);
+      break;
+    }
+
     if (checkWinner(pointBroad, '2'))
     {
       printf("Ban da chien thang !!!");
@@ -116,6 +123,12 @@ void joinPerson(int sockfd, int typeOfGame, char name[], int connectserver)
     if (checkWinner(pointBroad, '1'))
     {
       printf("Ban da thua cuoc !!!");
+      getchar();
+      close(sockfd);
+      break;
+    }
+    if (checkDraw()) {
+      printf("Ket qua hoa!");
       getchar();
       close(sockfd);
       break;

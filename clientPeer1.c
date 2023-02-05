@@ -72,6 +72,13 @@ void hostPerson(int sockfd, int typeOfGame, char name[], int connectserver)
     if (typeOfGame == 2)
       score(name, competitorName);
 
+    if (checkDraw()) {
+      printf("Ket qua hoa!");
+      getchar();
+      close(sockfd);
+      break;
+    }
+
     if (checkWinner(pointBroad, '2'))
     {
       bzero(buff, MAX);
